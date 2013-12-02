@@ -19,7 +19,7 @@
 
 .mod_wow_raid_progress_wod .npc {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0px;
+    padding: 0 0 0 3px;
 }
 
 .mod_wow_raid_progress_wod .npc:last-child {
