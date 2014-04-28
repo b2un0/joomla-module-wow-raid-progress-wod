@@ -2,8 +2,8 @@
 <extension type="module" version="2.5" client="site" method="upgrade">
     <name>MOD_WOW_RAID_PROGRESS_WOD</name>
     <author>Branko Wilhelm</author>
-    <creationDate>Dez 2013</creationDate>
-    <copyright>(C) 2013 Branko Wilhelm</copyright>
+    <creationDate>Apr 2014</creationDate>
+    <copyright>(C) 2014 Branko Wilhelm</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <authorEmail>branko.wilhelm@gmail.com</authorEmail>
     <authorUrl>www.z-index.net</authorUrl>
@@ -27,7 +27,7 @@
         <fields name="params">
             <fieldset name="basic">
                 <field name="mode" type="radio" class="btn-group" default="manual" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_MODE_LABEL">
-                <option value="manual">MOD_WOW_RAID_PROGRESS_WOD_MODE_MANUAL</option>
+                    <option value="manual">MOD_WOW_RAID_PROGRESS_WOD_MODE_MANUAL</option>
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_MODE_AUTO</option>
                 </field>
                 <field name="lang" type="list" default="" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_LANG_LABEL">
@@ -51,6 +51,7 @@
                 <field name="hide" type="list" default="" multiple="true" label="MOD_WOW_RAID_PROGRESS_WOD_HIDE_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_HIDE_DESC">
                     <option value="0">MOD_WOW_RAID_PROGRESS_WOD_ZONE_0</option>
                 </field>
+                <field name="ajax" type="ajax" class="btn-group" label="Ajax" default="0" />
             </fieldset>
             <fieldset name="auto">
                 <field name="guild" type="text" default="" size="30" label="MOD_WOW_RAID_PROGRESS_WOD_GUILD_LABEL" />
