@@ -11,12 +11,25 @@ defined('_JEXEC') or die;
 
 final class ModWowRaidProgressWodHelper
 {
-
     private $params = null;
+
     private $raids = array(
-        // 
-        0 => array(
-            'link' => '',
+        // Blackrock Foundry
+        6967 => array(
+            'link' => 'Highmaul/blackrock-foundry/',
+            'stats' => array('kills' => 0, 'mode' => 'normal'),
+            'npcs' => array(
+                //
+                0 => array(
+                    'link' => '',
+                    'normal' => 0,
+                    'heroic' => 0
+                )
+            ),
+        ),
+        // Highmaul
+        6996 => array(
+            'link' => 'zone/highmaul/',
             'stats' => array('kills' => 0, 'mode' => 'normal'),
             'npcs' => array(
                 //
@@ -29,7 +42,7 @@ final class ModWowRaidProgressWodHelper
         )
     );
 
-    private function __construct(JRegistry &$params)
+    private function __construct(JRegistry $params)
     {
         if (version_compare(JVERSION, 3, '>=')) {
             $params->set('guild', rawurlencode(JString::strtolower($params->get('guild'))));
@@ -66,7 +79,7 @@ final class ModWowRaidProgressWodHelper
         return ob_get_clean();
     }
 
-    public static function getData(JRegistry &$params)
+    public static function getData(JRegistry $params)
     {
         if ($params->get('ajax')) {
             return;
@@ -152,7 +165,7 @@ final class ModWowRaidProgressWodHelper
 
         if (!$result = $cache->get($key)) {
             try {
-                $http = new JHttp(new JRegistry, new JHttpTransportCurl(new JRegistry));
+                $http = JHttpFactory::getHttp();
                 $http->setOption('userAgent', 'Joomla! ' . JVERSION . '; WoW Raid Progress - WoD; php/' . phpversion());
 
                 $result = $http->get($url, null, $this->params->get('timeout', 10));
