@@ -16,14 +16,78 @@ final class ModWowRaidProgressWodHelper
     private $raids = array(
         // Blackrock Foundry
         6967 => array(
-            'link' => 'Highmaul/blackrock-foundry/',
+            'link' => 'zone/blackrock-foundry/',
             'stats' => array('kills' => 0, 'mode' => 'normal'),
             'npcs' => array(
-                //
-                0 => array(
-                    'link' => '',
+                // Blackhand
+                87420 => array(
+                    'link' => 'zone/blackrock-foundry/blackhand',
                     'normal' => 0,
-                    'heroic' => 0
+                    'heroic' => 0,
+                    'mythic' => 0
+                ),
+                // Beastlord Darmac
+                76865 => array(
+                  'link' => 'zone/blackrock-foundry/beastlord-darmac',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Flamebender Ka'graz
+                76814 => array(
+                  'link' => 'zone/blackrock-foundry/flamebender-kagraz',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Operator Thogar
+                76906 => array(
+                  'link' => 'zone/blackrock-foundry/operator-thogar',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // The Blast Furnace"
+                76809 => array(
+                  'link' => 'zone/blackrock-foundry/the-blast-furnace',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Hans'gar and Franzok
+                76974 => array(
+                  'link' => 'zone/blackrock-foundry/Hansgar-and-franzok',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Gruul
+                76877 => array(
+                  'link' => 'zone/blackrock-foundry/gruul',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Kromog
+                77692 => array(
+                  'link' => 'zone/blackrock-foundry/kromog',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Oregorger
+                77182 => array(
+                  'link' => 'zone/blackrock-foundry/oregorger',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // The Iron Maidens
+                77577 => array(
+                  'link' => 'zone/blackrock-foundry/the-ron-maidens',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
                 )
             ),
         ),
@@ -32,12 +96,55 @@ final class ModWowRaidProgressWodHelper
             'link' => 'zone/highmaul/',
             'stats' => array('kills' => 0, 'mode' => 'normal'),
             'npcs' => array(
-                //
-                0 => array(
-                    'link' => '',
+                // The Butcher
+                87447 => array(
+                    'link' => 'zone/highmaul/the-butcher',
                     'normal' => 0,
-                    'heroic' => 0
-                )
+                    'heroic' => 0,
+                    'mythic' => 0
+                ),
+                // Kargath Bladefist
+                87444 => array(
+                  'link' => 'zone/highmaul/kargath-bladefist',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Twin Ogron
+                87449 => array(
+                  'link' => 'zone/highmaul/twin-ogron',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Ko'ragh
+                87445 => array(
+                  'link' => 'zone/highmaul/koragh',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Tectus
+                87446 => array(
+                  'link' => 'zone/highmaul/tectus',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Brackenspore
+                87441 => array(
+                  'link' => 'zone/highmaul/brackenspore',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
+                // Imperator Mar'gok
+                87818 => array(
+                  'link' => 'zone/highmaul/imperator-margok',
+                  'normal' => 0,
+                  'heroic' => 0,
+                  'mythic' => 0
+                ),
             ),
         )
     );
@@ -103,15 +210,12 @@ final class ModWowRaidProgressWodHelper
 
             $this->checkNormal($result->achievements);
 
-            if ($this->params->get('heroic') && $this->params->get('ranks')) {
-                $this->checkHeroic($result->members);
-            } else {
-                /*
-                // remove ?? if only normal mode visible
-                if (isset($this->raids[0])) {
-                    unset($this->raids[0]['npcs'][0]);
-                }
-                */
+            if (in_array('mythic', (array)$this->params->get('difficulty')) && $this->params->get('ranks')) {
+               $this->checkMythic($result->members);
+            }
+
+            if (in_array('heroic', (array)$this->params->get('difficulty')) && $this->params->get('ranks')) {
+               $this->checkHeroic($result->members);
             }
         }
 
@@ -126,9 +230,12 @@ final class ModWowRaidProgressWodHelper
         // at last replace links and count mode-kills
         foreach ($this->raids as $zoneId => &$zone) {
             $zone['link'] = $this->link($zone['link'], $zoneId);
-            $heroic = $normal = 0;
+            $mythic = $heroic = $normal = 0;
             foreach ($zone['npcs'] as $npcId => &$npc) {
                 $npc['link'] = $this->link($npc['link'], $npcId, true);
+                if ($npc['mythic'] === true) {
+                  $heroic++;
+                }
                 if ($npc['heroic'] === true) {
                     $heroic++;
                 }
@@ -144,6 +251,11 @@ final class ModWowRaidProgressWodHelper
             if ($heroic > 0) {
                 $zone['stats']['kills'] = $heroic;
                 $zone['stats']['mode'] = 'heroic';
+            }
+
+            if ($mythic > 0) {
+               $zone['stats']['kills'] = $mythic;
+               $zone['stats']['mode'] = 'mythic';
             }
 
             $zone['opened'] = in_array($zoneId, (array)$this->params->get('opened'));
@@ -216,6 +328,30 @@ final class ModWowRaidProgressWodHelper
         }
     }
 
+    private function checkMythic(array &$members)
+    {
+        $mythicIds = $this->getMythicIDs();
+        foreach ($members as &$member) {
+            if (in_array($member->rank, $this->params->get('ranks'))) {
+                $member->achievements = $this->loadMember($member->character->name);
+                if ($member->achievements) {
+                    foreach ($mythicIds as $id => $zoneNpc) {
+                        list ($npc, $zone) = explode(':', $zoneNpc, 2);
+                        if (in_array($id, $member->achievements->achievementsCompleted)) {
+                           $this->raids[$zone]['npcs'][$npc]['mythic']++;
+                        }
+                    }
+               }
+            }
+        }
+
+        foreach ($this->raids as &$zone) {
+            foreach ($zone['npcs'] as &$npc) {
+                $npc['mythic'] = (bool)($npc['mythic'] >= $this->params->get('successful', 5));
+            }
+        }
+    }
+
     private function getHeroicIDs()
     {
         $result = array();
@@ -223,6 +359,18 @@ final class ModWowRaidProgressWodHelper
             foreach ($zone['npcs'] as $npc => &$modes) {
                 $result[$modes['heroic']] = $npc . ':' . $zoneId;
                 $modes['heroic'] = 0;
+            }
+        }
+        return $result;
+    }
+
+    private function getMythicIDs()
+    {
+        $result = array();
+        foreach ($this->raids as $zoneId => &$zone) {
+            foreach ($zone['npcs'] as $npc => &$modes) {
+                $result[$modes['mythic']] = $npc . ':' . $zoneId;
+                $modes['mythic'] = 0;
             }
         }
         return $result;
@@ -245,7 +393,7 @@ final class ModWowRaidProgressWodHelper
     {
         foreach ($this->raids as $zoneId => &$zone) {
             foreach ($zone['npcs'] as $npcId => &$npc) {
-                if ($npc['heroic'] === true || $npc['normal'] === true) {
+                if ($npc['mythic'] === true || $npc['heroic'] === true || $npc['normal'] === true) {
                     continue;
                 }
                 switch ($this->params->get('adjust_' . $npcId)) {
@@ -256,6 +404,7 @@ final class ModWowRaidProgressWodHelper
                     case 'no':
                         $npc['normal'] = false;
                         $npc['heroic'] = false;
+                        $npc['mythic'] = false;
                         break;
 
                     case 'normal':
@@ -265,11 +414,13 @@ final class ModWowRaidProgressWodHelper
                     case 'heroic':
                         $npc['heroic'] = true;
                         break;
+
+                    case 'mythic':
+                        $npc['mythic'] = true;
+                        break;
                 }
             }
         }
-        //$this->generateXML();
-        //$this->generateINI();
     }
 
     private function link($link, $id, $npc = false)
@@ -287,31 +438,13 @@ final class ModWowRaidProgressWodHelper
         return $sites[$this->params->get('link')];
     }
 
-    private function generateINI()
-    {
-
-        header("Content-type: text/plain; charset=utf-8");
-
-        foreach ($this->raids as $zoneId => &$zone) {
-
-            echo strtoupper(__CLASS__) . '_ZONE_' . $zoneId . ' = ""' . PHP_EOL;
-
-            foreach ($zone['npcs'] as $npcId => &$npc) {
-                echo strtoupper(__CLASS__) . '_NPC_' . $npcId . ' = ""' . PHP_EOL;
-            }
-
-            echo PHP_EOL;
-        }
-
-        exit;
-    }
-
     private function generateXML()
     {
         header("Content-type: text/xml; charset=utf-8");
 
         $xml = new SimpleXMLElement('<fieldset />');
         $xml->addAttribute('name', 'adjustments');
+        $xml->addAttribute('label', strtoupper(__CLASS__ . '_adjustments_label'));
 
         $options = array('auto', 'no', 'normal', 'heroic');
 
