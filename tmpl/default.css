@@ -61,7 +61,8 @@
 }
 
 .mod_wow_raid_progress_wod .normal,
-.mod_wow_raid_progress_wod .heroic {
+.mod_wow_raid_progress_wod .heroic,
+.mod_wow_raid_progress_wod .mythic {
     display: inline-block;
     float: right;
     width: 18px;
@@ -75,9 +76,17 @@
 }
 
 .mod_wow_raid_progress_wod .heroic {
-    background-image: url('./images/heroic.png');
+     background-image: url('./images/heroic.png');
+ }
+
+.mod_wow_raid_progress_wod .mythic {
+    background-image: url('./images/mythic.png');
 }
 
-.mod_wow_raid_progress_wod .z0 {
-    background: url('images/z0.jpg') no-repeat top left;
+.mod_wow_raid_progress_wod .z6967 {
+    background: url('images/z6967.jpg') no-repeat top left;
+}
+
+.mod_wow_raid_progress_wod .z6996 {
+    background: url('images/z6996.jpg') no-repeat top left;
 }

@@ -34,7 +34,7 @@ JFactory::getDocument()->addScript(JUri::base(true) . '/modules/' . $module->mod
                         <?php foreach ($zone['npcs'] as $npc => $data) : ?>
                             <li class="npc">
                                 <?php echo JHtml::_('link', $data['link'], JText::_('MOD_WOW_RAID_PROGRESS_WOD_NPC_' . $npc), array('target' => '_blank')); ?>
-                                <span class="<?php echo ($data['heroic'] === true) ? ' heroic' : (($data['normal'] === true) ? ' normal' : ''); ?>"> </span>
+                                <span class="<?php if($data['mythic']) echo ' mythic'; elseif($data['heroic']) echo ' heroic'; elseif($data['normal']) echo ' normal'; ?>"> </span>
                             </li>
                         <?php endforeach; ?>
                     </ul>

@@ -438,6 +438,9 @@ final class ModWowRaidProgressWodHelper
         return $sites[$this->params->get('link')];
     }
 
+  /**
+   * @todo erst entfernen wenn die Reihenfolge der Bosse korrekt ist
+   */
     private function generateXML()
     {
         header("Content-type: text/xml; charset=utf-8");
