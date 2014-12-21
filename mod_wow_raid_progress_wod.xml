@@ -3,7 +3,7 @@
     <name>MOD_WOW_RAID_PROGRESS_WOD</name>
     <author>Branko Wilhelm</author>
     <creationDate>Apr 2014</creationDate>
-    <copyright>(C) 2014 Branko Wilhelm</copyright>
+    <copyright>(c) 2014 - 2015 Branko Wilhelm</copyright>
     <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <authorEmail>branko.wilhelm@gmail.com</authorEmail>
     <authorUrl>www.z-index.net</authorUrl>
@@ -17,35 +17,21 @@
     <languages folder="language">
         <language tag="en-GB">en-GB/en-GB.mod_wow_raid_progress_wod.ini</language>
         <language tag="en-GB">en-GB/en-GB.mod_wow_raid_progress_wod.sys.ini</language>
-        <language tag="de-DE">de-de/de-DE.mod_wow_raid_progress_wod.ini</language>
-        <language tag="de-DE">de-de/de-DE.mod_wow_raid_progress_wod.sys.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_wow_raid_progress_wod.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_wow_raid_progress_wod.sys.ini</language>
     </languages>
     <updateservers>
         <server type="collection" priority="1" name="z-index development">http://www.z-index.net/en/extensions.xml</server>
     </updateservers>
+    <media folder="media" destination="mod_wow_raid_progress_wod">
+        <folder>css</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+    </media>
     <config>
-        <fields name="params">
+        <fields name="params" addfieldpath="/plugins/system/wow/fields/">
             <fieldset name="basic">
-                <field name="mode" type="radio" class="btn-group" default="manual" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_MODE_LABEL">
-                    <option value="manual">MOD_WOW_RAID_PROGRESS_WOD_MODE_MANUAL</option>
-                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_MODE_AUTO</option>
-                </field>
-                <field name="lang" type="list" default="" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_LANG_LABEL">
-                    <option value="">JSELECT</option>
-                    <option value="en">English</option>
-                    <option value="de">German</option>
-                    <option value="fr">Français</option>
-                    <option value="es">Español</option>
-                    <option value="it">Italiano</option>
-                    <option value="pt">Português</option>
-                    <option value="ru">Русский</option>
-                </field>
-                <field name="link" type="list" default="battle.net" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_LINK_LABEL">
-                    <option value="battle.net">battle.net</option>
-                    <option value="wowhead.com">wowhead.com</option>
-                    <option value="wowdb.com">wowdb.com</option>
-                </field>
-                <field name="opened" type="list" default="6967" multiple="true" label="MOD_WOW_RAID_PROGRESS_WOD_OPENED_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_OPENED_DESC">
+                <field name="collapsed" type="list" default="6967" multiple="true" label="MOD_WOW_RAID_PROGRESS_WOD_COLLAPSED_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_COLLAPSED_DESC">
                     <option value="6967">MOD_WOW_RAID_PROGRESS_WOD_ZONE_6967</option>
                     <option value="6996">MOD_WOW_RAID_PROGRESS_WOD_ZONE_6996</option>
                 </field>
@@ -53,18 +39,9 @@
                     <option value="6967">MOD_WOW_RAID_PROGRESS_WOD_ZONE_6967</option>
                     <option value="6996">MOD_WOW_RAID_PROGRESS_WOD_ZONE_6996</option>
                 </field>
-                <field name="ajax" type="ajax" class="btn-group" label="Ajax" default="0" />
-            </fieldset>
-            <fieldset name="auto" label="MOD_WOW_RAID_PROGRESS_WOD_AUTO_LABEL">
-                <field name="guild" type="text" default="" size="30" label="MOD_WOW_RAID_PROGRESS_WOD_GUILD_LABEL" />
-                <field name="realm" type="text" default="" size="30" label="MOD_WOW_RAID_PROGRESS_WOD_REALM_LABEL" />
-                <field name="region" type="list" default="" label="MOD_WOW_RAID_PROGRESS_WOD_REGION_LABEL">
-                    <option value="">JSELECT</option>
-                    <option value="us">USA</option>
-                    <option value="eu">Europe</option>
-                    <option value="kr">Korea</option>
-                    <option value="tw">Taiwan</option>
-                    <option value="sea">Southeast Asia</option>
+                <field name="mode" type="radio" class="btn-group" default="manual" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_MODE_LABEL">
+                    <option value="manual">MOD_WOW_RAID_PROGRESS_WOD_MODE_MANUAL</option>
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_MODE_AUTO</option>
                 </field>
                 <field name="difficulty" type="list" multiple="true" class="btn-group" default="normal" label="MOD_WOW_RAID_PROGRESS_WOD_DIFFICULTY_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_DIFFICULTY_DESC">
                     <option value="normal" disabled="true">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
@@ -73,19 +50,25 @@
                 </field>
                 <field name="ranks" type="integer" first="0" last="10" step="1" multiple="true" label="MOD_WOW_RAID_PROGRESS_WOD_RANKS_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_RANKS_DESC" />
                 <field name="successful" type="integer" first="5" last="25" step="1" default="5" label="MOD_WOW_RAID_PROGRESS_WOD_SUCCESSFUL_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_SUCCESSFUL_DESC" />
-                <field name="cache_time" type="text" filter="integer" default="24" size="5" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_CACHE_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_CACHE_DESC" />
-                <field name="timeout" type="text" filter="integer" default="10" size="5" required="true" label="MOD_WOW_RAID_PROGRESS_WOD_TIMEOUT_LABEL" description="MOD_WOW_RAID_PROGRESS_WOD_TIMEOUT_DESC" />
+                <field name="ajax" type="ajax" class="btn-group" label="Ajax" default="0" />
             </fieldset>
             <fieldset name="adjustments" label="MOD_WOW_RAID_PROGRESS_WOD_ADJUSTMENT_LABEL">
-                <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_WOD_ZONE_6967"/>
-                <field name="adjust_87420" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87420">
+                <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_WOD_ZONE_6967" />
+                <field name="adjust_76877" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76877">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
-                <field name="adjust_76865" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76865">
+                <field name="adjust_77182" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_77182">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
+                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
+                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
+                </field>
+                <field name="adjust_76974" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76974">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
@@ -93,6 +76,13 @@
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
                 <field name="adjust_76814" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76814">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
+                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
+                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
+                </field>
+                <field name="adjust_76865" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76865">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
@@ -113,28 +103,7 @@
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
-                <field name="adjust_76974" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76974">
-                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
-                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
-                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
-                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
-                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
-                </field>
-                <field name="adjust_76877" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_76877">
-                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
-                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
-                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
-                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
-                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
-                </field>
                 <field name="adjust_77692" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_77692">
-                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
-                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
-                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
-                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
-                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
-                </field>
-                <field name="adjust_77182" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_77182">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
@@ -148,14 +117,14 @@
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
-                <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_WOD_ZONE_6996"/>
-                <field name="adjust_87447" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87447">
+                <field name="adjust_87420" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87420">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
+                <field type="spacer" class="label" label="MOD_WOW_RAID_PROGRESS_WOD_ZONE_6996" />
                 <field name="adjust_87444" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87444">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
@@ -163,14 +132,7 @@
                     <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
-                <field name="adjust_87449" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87449">
-                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
-                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
-                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
-                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
-                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
-                </field>
-                <field name="adjust_87445" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87445">
+                <field name="adjust_87447" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87447">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
@@ -185,6 +147,20 @@
                     <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
                 </field>
                 <field name="adjust_87441" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87441">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
+                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
+                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
+                </field>
+                <field name="adjust_87449" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87449">
+                    <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
+                    <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
+                    <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
+                    <option value="heroic">MOD_WOW_RAID_PROGRESS_WOD_RAID_HEROIC</option>
+                    <option value="mythic">MOD_WOW_RAID_PROGRESS_WOD_RAID_MYTHIC</option>
+                </field>
+                <field name="adjust_87445" default="auto" type="radio" class="btn-group" label="MOD_WOW_RAID_PROGRESS_WOD_NPC_87445">
                     <option value="auto">MOD_WOW_RAID_PROGRESS_WOD_RAID_AUTO</option>
                     <option value="no">MOD_WOW_RAID_PROGRESS_WOD_RAID_NO</option>
                     <option value="normal">MOD_WOW_RAID_PROGRESS_WOD_RAID_NORMAL</option>
