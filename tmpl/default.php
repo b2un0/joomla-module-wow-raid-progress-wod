@@ -8,7 +8,7 @@
  *
  * @var        array $raids
  * @var        stdClass $module
- * @var        JRegistry $params
+ * @var        Joomla\Registry\Registry $params
  */
 
 defined('_JEXEC') or die;
