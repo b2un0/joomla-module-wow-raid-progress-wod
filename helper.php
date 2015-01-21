@@ -202,7 +202,7 @@ class ModWowRaidProgressWodHelper extends WoWModuleAbstract
 
             if ($heroic > 0) {
                 $zone['stats']['kills'] = $heroic;
-                $zone['stats']['mode'] = 'mythic';
+                $zone['stats']['mode'] = 'heroic';
             }
 
             if ($mythic > 0) {
