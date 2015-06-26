@@ -13,9 +13,7 @@
 
 defined('_JEXEC') or die;
 
-if (version_compare(JVERSION, 3, '>=')) {
-    JHtml::_('jquery.framework');
-}
+JHtml::_('jquery.framework');
 
 JFactory::getDocument()->addScript('media/' . $module->module . '/js/default.js');
 JFactory::getDocument()->addStyleSheet('media/' . $module->module . '/css/default.css');

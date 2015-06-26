@@ -83,6 +83,10 @@
     background-image: url('../images/mythic.png');
 }
 
+.mod_wow_raid_progress_wod .z7545 {
+    background: url('../images/z7545.jpg') no-repeat top center;
+}
+
 .mod_wow_raid_progress_wod .z6967 {
     background: url('../images/z6967.jpg') no-repeat top center;
 }
