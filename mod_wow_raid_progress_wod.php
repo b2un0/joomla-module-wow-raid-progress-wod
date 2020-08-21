@@ -17,7 +17,7 @@ if (!class_exists('WoWModuleAbstract')) {
     return;
 }
 
-JLoader::register('ModWowRaidProgressWodHelper', dirname(__FILE__) . '/helper.php');
+JLoader::register('ModWowRaidProgressWodHelper', __DIR__ . '/helper.php');
 
 $raids = ModWowRaidProgressWodHelper::getData($params);
 
